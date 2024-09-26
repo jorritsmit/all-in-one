@@ -643,7 +643,7 @@ The examples below define the dynamic configuration in YAML files. If you rather
              - nextcloud-secure-headers
    ```
 
-Sadly with how traefik works, traefik is not able to forward to host.docker.internal:11000, but needs to directly forward to the nextcloud-aio-apache container. For this it also needs access to the nextcloud-aio network. Here is an `docker-compose.yaml` example on how this can be configure:
+Sadly with how traefik works, traefik is not able to forward to host.docker.internal:11000, but needs to directly forward to the nextcloud-aio-apache container. For this it also needs access to the nextcloud-aio network. Here is a `docker-compose.yaml` example on how this can be configure:
 
 ```yml
 networks:
