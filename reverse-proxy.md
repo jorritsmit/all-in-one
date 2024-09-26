@@ -608,28 +608,28 @@ The examples below define the dynamic configuration in YAML files. If you rather
    http:
      routers:
        nextcloud:
-         rule: "Host(`<your-nc-domain>`)"
+         rule: Host(`<your-nc-domain>`)
          entrypoints:
-           - "https"
+           - https
          service: nextcloud
          middlewares:
            - nextcloud-chain
          tls:
-           certresolver: "letsencrypt"
+           certresolver: letsencrypt
 
      services:
        nextcloud:
          loadBalancer:
            servers:
-             - url: "http://localhost:11000"
-             # - url: "http://nextcloud-aio-apache:11000: # Use this line if Traefik runs outside the host network, see explanation below
+             - url: http://localhost:11000
+             # - url: http://nextcloud-aio-apache:11000: # Use this line if Traefik runs outside the host network, see explanation below
 
      middlewares:
        nextcloud-secure-headers:
          headers:
            hostsProxyHeaders:
-             - "X-Forwarded-Host"
-           referrerPolicy: "same-origin"
+             - X-Forwarded-Host
+           referrerPolicy: same-origin
 
        https-redirect:
          redirectscheme:
@@ -655,8 +655,8 @@ networks:
 
 services:
   traefik:
-    image: "traefik:latest"
-    container_name: "traefik"
+    image: traefik:latest
+    container_name: traefik
     security_opt:
       - no-new-privileges:true
     ports:
@@ -680,17 +680,17 @@ services:
       - traefik.http.routers.traefik.tls.certresolver=letsencrypt
 
   nextcloud-aio-master:
-    image: "nextcloud/all-in-one:latest"
-    container_name: "nextcloud-aio-mastercontainer"
+    image: nextcloud/all-in-one:latest
+    container_name: nextcloud-aio-mastercontainer
     init: true
     ports:
       - 8040:8080
     environment:
-      - "APACHE_PORT=11000"
-      - "APACHE_IP_BINDING=0.0.0.0"
+      - APACHE_PORT=11000
+      - APACHE_IP_BINDING=0.0.0.0
       - SKIP_DOMAIN_VALIDATION=true # Needed only if you are using an external domain and your router does not support nat reflection
     volumes:
-      - "nextcloud_aio_mastercontainer:/mnt/docker-aio-config"
+      - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
       - /var/run/docker.sock:/var/run/docker.sock:ro'
     restart: unless-stopped
 ```
