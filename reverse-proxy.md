@@ -673,7 +673,7 @@ services:
       # also add a volume for your static and dynamic configuration files
     labels:
       - traefik.enable=true
-      - traefik.docker.network=treafik
+      - traefik.docker.network=treafik_proxy
       - traefik.http.routers.traefik.rule=Host(traefik.<your-domain>)
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.tls=true
